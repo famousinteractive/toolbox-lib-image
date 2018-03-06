@@ -7,6 +7,16 @@ class Resize
 {
 	public static $format = ['jpg','png'];
 
+	/**
+	 * @param $path
+	 * @param null $width
+	 * @param null $height
+	 * @param bool $keepRatio
+	 * @param bool $preventUpsize
+	 * @param null $format
+	 * @param bool $cache
+	 * @return string
+	 */
 	public static function resize($path, $width = null, $height = null, $keepRatio = true, $preventUpsize = true, $format = null, $cache = true) {
 
 		$fileInfo = self::getFileName($path);
@@ -18,9 +28,10 @@ class Resize
 		}
 
 		$finalPath = storage_path('app/public/resized/' . $fileName);
+		$publicPath = 'storage/resized/' . $fileName;
 
 		if( file_exists($finalPath) && time()-filemtime($finalPath) < 3600) {
-			return asset('storage/resized/' . $fileName);
+			return $publicPath;
 		} else {
 
 
@@ -40,7 +51,7 @@ class Resize
 
 			$img->save($finalPath);
 
-			return asset('storage/resized/' . $fileName);
+			return $publicPath;
 		}
 
 	}
@@ -51,8 +62,8 @@ class Resize
 
 		$fileName = end($explodedPath);
 
-		$name = substr( $fileName, 0, strpos('.', $fileName));
-		$extension = substr($fileName, strpos('.', $fileName));
+		$name = substr( $fileName, 0, strpos($fileName, '.'));
+		$extension = substr($fileName, strpos($fileName, '.'));
 
 		return [
 			'filename' => $fileName,
