@@ -12,6 +12,6 @@ if( !function_exists('resize')) {
 	 * @return string
 	 */
 	function resize($imagePath, $width = null, $height = null, $keepRatio = true, $preventUpsize = true, $format = null, $cache = true) {
-		return \App\Libraries\Famous\Image\Resize::resize($imagePath, $width, $height, $keepRatio, $preventUpsize, $format, $cache);
+		return \App\Libraries\Image\Resize::resize($imagePath, $width, $height, $keepRatio, $preventUpsize, $format, $cache);
 	}
 }

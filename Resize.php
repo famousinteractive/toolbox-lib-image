@@ -1,5 +1,5 @@
 <?php
-namespace App\Libraries\Famous\Image;
+namespace App\Libraries\Image;
 
 use Intervention\Image\Facades\Image;
 
