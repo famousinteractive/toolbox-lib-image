@@ -26,16 +26,14 @@ class Resize
 		} else {
 			$fileName = $fileInfo['name'] . '.' . $format;
 		}
-		$fileName = $width .'x'.$height.'-' . ($keepRatio ? 'kr-' : '') . ($preventUpsize ? 'pu-': '').$fileName;
+		$fileName = $width .'x'.$height.'-' . ($keepRatio ? 'kr-' : '') . ($preventUpsize ? 'pu-': ''an).$fileName;
 
 		$finalPath = storage_path('app/public/resized/' . $fileName);
 		$publicPath = 'storage/resized/' . $fileName;
 
-		if( file_exists($finalPath) && time()-filemtime($finalPath) < 3600) {
+		if($cache && file_exists($finalPath) && time()-filemtime($finalPath) < env('IMAGE_CACHE_DURATION', 3600)) {
 			return $publicPath;
 		} else {
-
-
 			$img = Image::make($path);
 
 			$img->resize($width, $height, function ($constraint) use ($keepRatio, $preventUpsize) {
