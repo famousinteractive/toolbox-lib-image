@@ -26,6 +26,7 @@ class Resize
 		} else {
 			$fileName = $fileInfo['name'] . '.' . $format;
 		}
+		$fileName = $width .'x'.$height.'-' . ($keepRatio ? 'kr-' : '') . ($preventUpsize ? 'pu-': '').$fileName;
 
 		$finalPath = storage_path('app/public/resized/' . $fileName);
 		$publicPath = 'storage/resized/' . $fileName;
